@@ -6,4 +6,5 @@ faiss-cpu
 pypdf
 huggingface_hub
 PyPDF2
+sentence-transformers
 
