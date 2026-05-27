@@ -17,8 +17,8 @@ if "HF_TOKEN" not in st.secrets:
     st.stop()
 
 # Initialize Models
-# We use a good, free instruction model for the logic
-REPO_ID = "HuggingFaceH4/zephyr-7b-beta" 
+# FIXED: Changed REPO_ID to an active, supported serverless instruction model
+REPO_ID = "meta-llama/Meta-Llama-3-8B-Instruct" 
 client = InferenceClient(model=REPO_ID, token=st.secrets["HF_TOKEN"])
 
 @st.cache_resource
@@ -72,7 +72,6 @@ def get_keywords(text):
     messages = [{"role": "user", "content": prompt}]
     
     try:
-        # UPDATED: Replaced client.post with client.chat_completion
         response = client.chat_completion(messages, max_tokens=50)
         return response.choices[0].message.content
     except Exception as e:
@@ -101,7 +100,6 @@ def get_answer_from_llm(context, question):
     ]
     
     try:
-        # UPDATED: Replaced client.post with client.chat_completion
         response = client.chat_completion(messages, max_tokens=500, temperature=0.3)
         return response.choices[0].message.content
     except Exception as e:
