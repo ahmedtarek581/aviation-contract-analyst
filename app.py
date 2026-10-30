@@ -16,8 +16,8 @@ if "HF_TOKEN" not in st.secrets:
     st.error("⚠️ Error: HF_TOKEN not found in secrets. Please add it to your Streamlit secrets.")
     st.stop()
 
-# Initialize Llama 3 Model (Serverless API)
-REPO_ID = "meta-llama/Meta-Llama-3-8B-Instruct" 
+# Initialize LLM (Hugging Face Inference Providers)
+REPO_ID = st.secrets.get("HF_MODEL", "meta-llama/Llama-3.1-8B-Instruct")
 client = InferenceClient(model=REPO_ID, token=st.secrets["HF_TOKEN"])
 
 @st.cache_resource
